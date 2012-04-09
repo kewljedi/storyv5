@@ -1,0 +1,15 @@
+<h1><%= page.get("name") %></h1>
+
+<p>
+	<%= page.get("body") %>
+</p>
+
+<ul>
+<% _.each(exits, function(exit){ %>
+	<li>
+		<a data-id="<%= exit.get("id") %>">
+			<%= exit.get("name")%>
+		</a>
+	</li>
+<% }); %>
+</ul>

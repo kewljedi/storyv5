@@ -1,0 +1,33 @@
+<h1><%= story.get("name") %></h1>
+
+<p>
+<%= story.get("description") %>
+</p>
+
+<a id="read" class="btn btn-primary">
+	<i class="icon-eye-open icon-white"/>
+	Read
+</a>
+
+<a id="delete" class="btn btn-danger">
+	<i class="icon-remove icon-white"/>
+	Delete
+</a>
+
+<a id="cancel" class="btn">
+	Cancel
+</a>
+
+<div class="modal" style="display:none" id="myModal">
+  <div class="modal-header">
+    <a class="close" data-dismiss="modal">×</a>
+    <h3>Delete the story?</h3>
+  </div>
+  <div class="modal-body">
+    <p><%= story.get("name") %></p>
+  </div>
+  <div class="modal-footer">
+    <a class="btn close">Cancel</a>
+    <a id="deleteConfirmed" class="btn btn-danger">Delete</a>
+  </div>
+</div>

@@ -1,0 +1,10 @@
+<dl>
+  <% _.each(stories, function(story){ %>
+   <dt data-id="<%= story.get("id") %>"><%= story.get("name") %></dt> 
+	<dd><%= story.get("description") %></dd> 
+  <% }); %>
+</dl>
+<a id="newStory" class="btn btn-primary">
+	<i class="icon-plus icon-white"/>
+	Create New Story
+</a>
