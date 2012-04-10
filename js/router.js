@@ -5,8 +5,9 @@ define([
   'Backbone',
   'views/Story/ListView',
   'views/Story/NewView',
-   'views/Story/ItemView'
-], function($, _, Backbone, StoryListView,StoryNewView,StoryItemView){
+  'views/Story/ItemView',
+  'views/Page/NewView'
+], function($, _, Backbone, StoryListView,StoryNewView,StoryItemView,PageNewView){
 	
   var AppRouter = Backbone.Router.extend({
     routes: {
@@ -14,8 +15,8 @@ define([
       'stories/list'			: 'showStories',
       'stories/new' 			: 'newStory',
       'story/:storyId'			: 'showStory',
+	  'story/:storyId/new'		: 'newPage',      
       'story/:storyId/:pageId' 	: 'readPage',
-	  'story/:storyId/new'		: 'newPage',
       '*actions'				: 'defaultAction'
     },
     showStories: function(){

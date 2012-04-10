@@ -4,7 +4,7 @@ define([
   'Backbone',
   // Pull in the Model module from above
   'models/Page'
-], function(_, Backbone, projectModel){
+], function(_, Backbone, PageModel){
 
 	var PageCollection = Backbone.Collection.extend({
 	  model: PageModel

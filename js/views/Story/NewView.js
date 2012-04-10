@@ -12,8 +12,8 @@ define([
 		tagName: 'ul',
 
 		events: {
-		  "click #save"			: "save",
-		  "click #cancel"		: "cancel"			
+		  "click #saveStory"	: "save",
+		  "click #cancelStory"	: "cancel"			
 		},
 
 		save: function(){
@@ -27,7 +27,7 @@ define([
 			);
 			
 			StoryCollection.create(story);
-			var page = new String("story/" + story.get("id"));
+			var page = new String("story/" + story.get("id") + "/new");
 			
 			Backbone.history.navigate(page ,{trigger:true});
 		},

@@ -3,7 +3,6 @@ define([
   'jQuery',
   'Underscore',
   'Backbone',
-  // Pull in the Collection module from above
   'collections/StoryCollection',
   'text!/templates/Story/Item',
   'Bootstrap'
@@ -43,7 +42,7 @@ define([
 		},
 		render: function() {
 			
-			var id =arguments[0].Id;
+			var id = arguments[0].Id;
 			this.model = StoryCollection.where({id:id})[0];
 			
 			var page = new String("story/" + this.model.get("id"));

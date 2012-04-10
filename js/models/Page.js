@@ -12,7 +12,8 @@ define([
 				return "WOW, this is an exciting page! Maybe it should say something!"
 			}
 		}
-	}
+	});
+	
 
  	// You usually don't return a model instantiated
 	return PageModel;

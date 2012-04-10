@@ -3,33 +3,37 @@ define([
   'jQuery',
   'Underscore',
   'Backbone',
-  // Pull in the Collection module from above
   'collections/StoryCollection',
+  'collections/PageCollection',
   'text!/templates/Page/New'
-], function($,_, Backbone, StoryCollection, PageNewTemplate){
+], function($,_, Backbone,StoryCollection, PageCollection, PageNewTemplate){
 	var PageNewView = Backbone.View.extend({
 		el: $("#content"),
 		tagName: 'ul',
 
 		events: {
-		  "click #save"			: "save",
-		  "click #cancel"		: "cancel"			
+		  "click #savePage"		: "save",
+		  "click #cancelPage"	: "cancel"			
 		},
 
 		save: function(){
-			story = new StoryCollection.model;
+			var page = new PageCollection.model;		
 			
-			story.set(
-				{
-					name:jQuery("#txtTitle").val(),
-					description:jQuery("#areDescription").val()
-				}
-			);
+			page.set("name",jQuery("#txtTitle").val());
+			page.set("description",jQuery("#areBody").val());
 			
-			StoryCollection.create(story);
-			var page = new String("story/" + story.get("id"));
+			PageCollection.create(page);
 			
-			Backbone.history.navigate(page ,{trigger:true});
+			if(this.story.firstpage == null)
+			{
+				this.story.set("firstpage") = page.id;
+				this.story.save();
+			}
+			
+			var targetpage = new String("story/" + story.get("id") + "/" + page.id);
+			
+			Backbone.history.navigate(targetpage ,{trigger:true});
+			
 		},
 		cancel: function (){
 			Backbone.history.navigate("stories/list",{trigger:true});
@@ -39,8 +43,15 @@ define([
 		},
 		render: function() {
 			
-			Backbone.history.navigate("stories/new", {trigger: false});
+			var id =arguments[0].storyId;
+			var story = StoryCollection.where({id:id})[0];
+			
+			this.story = story;
+			
+			Backbone.history.navigate("story/" + story.id + "/new", {trigger: false});
+			
 	   		var data = {
+				story:story,
 				_: _
 			};
 
