@@ -32,7 +32,7 @@ define([
 			Backbone.history.navigate("stories/list",{trigger:true});
 		},
 		read: function(){
-			alert("read");
+			Backbone.history.navigate("story/" + this.model.get("id") + "/" + this.model.get("firstpage"),{trigger:true});
 		},
 		cancel: function (){
 			Backbone.history.navigate("stories/list",{trigger:true});

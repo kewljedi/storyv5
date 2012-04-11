@@ -7,7 +7,11 @@ define([
 ], function(_, Backbone, PageModel){
 
 	var PageCollection = Backbone.Collection.extend({
-	  model: PageModel
+	  localStorage: new Store("pages"),
+	  model: PageModel,
+	  initialize: function (){
+		this.fetch();
+	  }
 	})
 
 	return new PageCollection;

@@ -17,17 +17,22 @@ define([
 		},
 
 		save: function(){
-			var page = new PageCollection.model;		
+		    page = new PageCollection.model;		
 			
-			page.set("name",jQuery("#txtTitle").val());
-			page.set("description",jQuery("#areBody").val());
+			page.set({
+				name:jQuery("#txtTitle").val(),
+				body:jQuery("#areBody").val() 
+			});
 			
 			PageCollection.create(page);
 			
 			if(this.story.firstpage == null)
 			{
-				this.story.set("firstpage") = page.id;
+				this.story.set("firstpage",page.id);
 				this.story.save();
+			} else {
+				//this is all about a path, not just a page.
+				//so we need to get the path and set its exit page id.
 			}
 			
 			var targetpage = new String("story/" + story.get("id") + "/" + page.id);
@@ -43,7 +48,7 @@ define([
 		},
 		render: function() {
 			
-			var id =arguments[0].storyId;
+			var id = arguments[0].storyId;
 			var story = StoryCollection.where({id:id})[0];
 			
 			this.story = story;

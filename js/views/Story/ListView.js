@@ -26,7 +26,6 @@ define([
 		},
 		initialize: function(){
 			this.collection = StoryCollection;
-			this.collection.fetch();
 		},
 	
 		render: function() {
