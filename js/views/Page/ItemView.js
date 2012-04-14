@@ -11,6 +11,12 @@ define([
 	var PageItemView = Backbone.View.extend({
 		tagName: 'div',
 		el: $("#content"),
+		events: {
+		  "click #newPath"		: "newPath"
+		},
+		newPath: function() {
+			
+		},
 		render: function() {
 			
 			var storyId = arguments[0].storyId;//not really used now
