@@ -5,8 +5,9 @@ define([
   'Backbone',
   'collections/StoryCollection',
   'collections/PageCollection',
-  'text!/templates/Page/New'
-], function($,_, Backbone,StoryCollection, PageCollection, PageNewTemplate){
+  'text!/templates/Page/New',
+   'collections/PathCollection'
+], function($,_, Backbone,StoryCollection, PageCollection, PageNewTemplate,PathCollection){
 	var PageNewView = Backbone.View.extend({
 		el: $("#content"),
 		tagName: 'ul',
@@ -26,16 +27,26 @@ define([
 			
 			PageCollection.create(page);
 			
-			if(this.story.firstpage == null)
+			if(this.story.get("firstpage") == null)
 			{
-				this.story.set("firstpage",page.id);
+				this.story.set("firstpage",page.get("id"));
 				this.story.save();
 			} else {
 				//this is all about a path, not just a page.
 				//so we need to get the path and set its exit page id.
+				path = new PathCollection.model;
+				path.set("output", page.get("id"));
+				path.set("body", $("#txtPath").val());
+				if(this.input != null)
+				{
+					path.set("input", this.input.get("id"));
+				}
+				
+				PathCollection.create(path);
+				
 			}
 			
-			var targetpage = new String("story/" + story.get("id") + "/" + page.id);
+			var targetpage = new String("story/" + this.story.get("id") + "/" + page.id);
 			
 			Backbone.history.navigate(targetpage ,{trigger:true});
 			
@@ -46,22 +57,47 @@ define([
 		initialize: function(){
 			
 		},
+		fillObjs: function (arguments){
+			var found = true;
+			
+			if(arguments[0].story != null)
+			{
+				this.story = arguments[0].story;
+			} 
+			else if (arguments[0].storyId != null) 
+			{
+				var id = arguments[0].storyId;
+				this.story = StoryCollection.where({id:id})[0];
+			} else {
+				found = false;
+			}
+		
+			if(arguments[0].input != null)
+			{
+				this.input = arguments[0].input;
+			}
+					
+			return found;
+		},
 		render: function() {
+				
+			var found = this.fillObjs(arguments);
+		
+			if(found)
+			{
+				Backbone.history.navigate("story/" + this.story.id + "/new", {trigger: false});
 			
-			var id = arguments[0].storyId;
-			var story = StoryCollection.where({id:id})[0];
-			
-			this.story = story;
-			
-			Backbone.history.navigate("story/" + story.id + "/new", {trigger: false});
-			
-	   		var data = {
-				story:story,
-				_: _
-			};
+		   		var data = {
+					story:this.story,
+					input:this.input,
+					_: _
+				};
 
-			var compiledTemplate = _.template( PageNewTemplate, data );
-			this.$el.html( compiledTemplate );
+				var compiledTemplate = _.template( PageNewTemplate, data );
+				this.$el.html( compiledTemplate );
+			} else {
+				this.$el.html("<div class=\"alert alert-error\">Not Found.</div>");
+			}
 			
 			return this;
 		}

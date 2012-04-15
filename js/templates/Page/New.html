@@ -1,7 +1,12 @@
 <form class="form-horizontal">
 	<fieldset class="control-group">
 		<ledgend>New Page</ledgend>
-		<label id="lblTitle" for="txtTitle">Title:</label>
+		<% if(input != null ){%>
+			<label id="lblPath" for="txtPath">Path Text:</label>
+			<input type="text" id="txtPath"/>
+		<% }%>
+		
+		<label id="lblTitle" for="txtTitle">Page Title:</label>
 		<input type="text" id="txtTitle"/>
 	
 		<label id="lblBody" for="areDescription">Body:</label>

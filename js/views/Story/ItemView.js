@@ -15,8 +15,7 @@ define([
 		  "click #read"			: "read",
 		  "click #cancel"		: "cancel",
 		  "click #deleteConfirmed"	: "deleteConfirmed",
-		  "click .close" : "hideDeleteQuestion",
-				
+		  "click .close" : "hideDeleteQuestion"				
 		},
 		hideDeleteQuestion: function(){
 			$('#myModal').modal('hide');
@@ -42,8 +41,13 @@ define([
 		},
 		render: function() {
 			
-			var id = arguments[0].Id;
-			this.model = StoryCollection.where({id:id})[0];
+			if(arguments[0].Story == null)
+			{
+				var id = arguments[0].Id;
+				this.model = StoryCollection.where({id:id})[0];
+			} else {
+				this.model = arguments[0].Story
+			}
 			
 			var page = new String("story/" + this.model.get("id"));
 			

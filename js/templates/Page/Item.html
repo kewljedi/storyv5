@@ -7,8 +7,8 @@
 <ul>
 <% _.each(exits, function(exit){ %>
 	<li>
-		<a data-id="<%= exit.get("id") %>">
-			<%= exit.get("name")%>
+		<a class="path" data-id="<%= exit.get("id") %>">
+			<%= exit.get("body")%>
 		</a>
 	</li>
 <% }); %>
