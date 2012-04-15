@@ -20,7 +20,7 @@ define([
 		},
 		path: function() {
 			var pageId = arguments[0].currentTarget.attributes['data-id'].value;
-			var page = "/stories/" + this.story.get("id") + "/" + pageId;
+			var page = "/story/" + this.story.get("id") + "/" + pageId;
 			Backbone.history.navigate(page,{trigger:true});
 		},
 		newPath: function() {
