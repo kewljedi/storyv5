@@ -8,7 +8,10 @@ define([
 
 	var StoryCollection = Backbone.Collection.extend({
 	  localStorage: new Store("stories"),
-	  model: StoryModel
+	  model: StoryModel,
+	  initialize: function (){
+		this.fetch();
+	  }
 	})
 
 	return new StoryCollection;

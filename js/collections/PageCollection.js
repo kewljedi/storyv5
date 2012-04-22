@@ -4,10 +4,14 @@ define([
   'Backbone',
   // Pull in the Model module from above
   'models/Page'
-], function(_, Backbone, projectModel){
+], function(_, Backbone, PageModel){
 
 	var PageCollection = Backbone.Collection.extend({
-	  model: PageModel
+	  localStorage: new Store("pages"),
+	  model: PageModel,
+	  initialize: function (){
+		this.fetch();
+	  }
 	})
 
 	return new PageCollection;

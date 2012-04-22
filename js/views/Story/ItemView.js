@@ -3,7 +3,6 @@ define([
   'jQuery',
   'Underscore',
   'Backbone',
-  // Pull in the Collection module from above
   'collections/StoryCollection',
   'text!/templates/Story/Item',
   'Bootstrap'
@@ -16,8 +15,7 @@ define([
 		  "click #read"			: "read",
 		  "click #cancel"		: "cancel",
 		  "click #deleteConfirmed"	: "deleteConfirmed",
-		  "click .close" : "hideDeleteQuestion",
-				
+		  "click .close" : "hideDeleteQuestion"				
 		},
 		hideDeleteQuestion: function(){
 			$('#myModal').modal('hide');
@@ -33,7 +31,7 @@ define([
 			Backbone.history.navigate("stories/list",{trigger:true});
 		},
 		read: function(){
-			alert("read");
+			Backbone.history.navigate("story/" + this.model.get("id") + "/" + this.model.get("firstpage"),{trigger:true});
 		},
 		cancel: function (){
 			Backbone.history.navigate("stories/list",{trigger:true});
@@ -43,8 +41,13 @@ define([
 		},
 		render: function() {
 			
-			var id =arguments[0].Id;
-			this.model = StoryCollection.where({id:id})[0];
+			if(arguments[0].Story == null)
+			{
+				var id = arguments[0].Id;
+				this.model = StoryCollection.where({id:id})[0];
+			} else {
+				this.model = arguments[0].Story
+			}
 			
 			var page = new String("story/" + this.model.get("id"));
 			

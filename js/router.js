@@ -5,8 +5,10 @@ define([
   'Backbone',
   'views/Story/ListView',
   'views/Story/NewView',
-   'views/Story/ItemView'
-], function($, _, Backbone, StoryListView,StoryNewView,StoryItemView){
+  'views/Story/ItemView',
+  'views/Page/NewView',
+  'views/Page/ItemView'
+], function($, _, Backbone, StoryListView,StoryNewView,StoryItemView,PageNewView,PageItemView){
 	
   var AppRouter = Backbone.Router.extend({
     routes: {
@@ -14,17 +16,15 @@ define([
       'stories/list'			: 'showStories',
       'stories/new' 			: 'newStory',
       'story/:storyId'			: 'showStory',
+	  'story/:storyId/new'		: 'newPage',      
       'story/:storyId/:pageId' 	: 'readPage',
-	  'story/:storyId/new'		: 'newPage',
       '*actions'				: 'defaultAction'
     },
     showStories: function(){
-      // Call render on the module we loaded in via the dependency array
-      // 'views/projects/list'
-      StoryListView.render();
+      	StoryListView.render();
     },
     newStory: function(){
-	  StoryNewView.render();
+	  	StoryNewView.render();
 	},
 	newPage: function(storyId){
 		PageNewView.render({storyId:storyId});
@@ -33,11 +33,12 @@ define([
 		StoryItemView.render({ Id:storyId});
 	},
 	readPage: function(storyId, pageId){
-		console.log("Story: " + storyId + " Page: " + pageId);
+		PageItemView.render({storyId:storyId,pageId:pageId});
+		//console.log('adfadsfas');
 	},
     defaultAction: function(actions){
-      // We have no matching route, lets just log what the URL was
-      console.log('No route:', actions);
+      	// We have no matching route, lets just log what the URL was
+      	console.log('No route:', actions);
     }
   });
 

@@ -17,6 +17,7 @@ define([
 		},
 	
 		open: function(){
+			
 			var page = new String("story/" + arguments[0].currentTarget.attributes['data-id'].value);
 			
 			Backbone.history.navigate(page, {trigger:true} );
@@ -26,7 +27,6 @@ define([
 		},
 		initialize: function(){
 			this.collection = StoryCollection;
-			this.collection.fetch();
 		},
 	
 		render: function() {
