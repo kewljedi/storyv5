@@ -3,19 +3,16 @@ define([
   'jQuery',
   'Underscore',
   'Backbone',
-  // Pull in the Collection module from above
   'collections/StoryCollection',
-  'text!/templates/Story/New'
-], function($,_, Backbone, StoryCollection, StoryNewTemplate){
+  'text!/templates/Story/New',
+  'views/Page/NewView'
+], function($,_, Backbone, StoryCollection, StoryNewTemplate,PageNewView){
 	var StoryNewView = Backbone.View.extend({
 		el: $("#content"),
-		tagName: 'ul',
-
 		events: {
 		  "click #saveStory"	: "save",
 		  "click #cancelStory"	: "cancel"			
 		},
-
 		save: function(){
 			story = new StoryCollection.model;
 			
@@ -27,9 +24,8 @@ define([
 			);
 			
 			StoryCollection.create(story);
-			var page = new String("story/" + story.get("id") + "/new");
 			
-			Backbone.history.navigate(page ,{trigger:true});
+			PageNewView.render({storyId:story.get("id")});
 		},
 		cancel: function (){
 			Backbone.history.navigate("stories/list",{trigger:true});
@@ -38,8 +34,7 @@ define([
 			
 		},
 		render: function() {
-			
-			Backbone.history.navigate("stories/new", {trigger: false});
+
 	   		var data = {
 				_: _
 			};

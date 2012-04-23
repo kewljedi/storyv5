@@ -85,7 +85,8 @@ define([
 		
 			if(found)
 			{
-				Backbone.history.navigate("story/" + this.story.id + "/new", {trigger: false});
+				//don't track this because we don't want the back button to ever come back here.
+			//	Backbone.history.navigate("story/" + this.story.id + "/new", {trigger: false});
 			
 		   		var data = {
 					story:this.story,

@@ -24,6 +24,8 @@ define([
 			Backbone.history.navigate(page,{trigger:true});
 		},
 		newPath: function() {
+			//we make sure that we aren't adding these to the history
+			//that way the back button will always miss creating new things
 			var newpageView = PageNewView.render({story:this.story,input:this.model});
 		},
 		fillObjs: function(arguments){

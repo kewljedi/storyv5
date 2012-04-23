@@ -4,31 +4,26 @@ define([
   'Underscore',
   'Backbone',
   'collections/StoryCollection',
-  'text!/templates/Story/ListView'
-], function($,_, Backbone, StoryCollection, StoryListTemplate){
+  'text!/templates/Story/ListView',
+  'views/Story/NewView'
+], function($,_, Backbone, StoryCollection, StoryListTemplate,StoryNewView){
 
 	var StoryListView = Backbone.View.extend({
 		el: $("#content"),
-		tagName: 'dl',
-		
 		events: {
 		  "click dt"                : "open",
 		  "click #newStory"			: "gotonew"
 		},
-	
 		open: function(){
-			
 			var page = new String("story/" + arguments[0].currentTarget.attributes['data-id'].value);
-			
 			Backbone.history.navigate(page, {trigger:true} );
 		},
 		gotonew:function(){
-			Backbone.history.navigate("stories/new",{trigger:true});
+			StoryNewView.render();
 		},
 		initialize: function(){
 			this.collection = StoryCollection;
 		},
-	
 		render: function() {
 			Backbone.history.navigate("stories/list",{trigger:false});
 			
